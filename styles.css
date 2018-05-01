@@ -1,0 +1,39 @@
+body, html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box !important;
+}
+
+.modal-backdrop {
+    display: none;
+}
+
+.modal-window {
+  display: none;
+}
+
+.modal-window-container {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+.modal-backdrop.active {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-window.active {
+  width: 500px;
+  height: 500px;
+  display: block;
+  background-color: #fff;
+}
