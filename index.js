@@ -19,8 +19,8 @@ class ModalComponent {
   }
 
   _openModal() {
-    this._modalBackdropNode.classList.add('active')
-    this._modalBackdropNode.firstChild.classList.add('active')
+    this._modalBackdropNode.classList.add('modal-backdrop--active')
+    this._modalBackdropNode.firstChild.classList.add('modal-window--active')
     this._addCloseModalEvent()
     this._isModalOpen = true
     this._triggerButton()
@@ -28,8 +28,8 @@ class ModalComponent {
   }
 
   _closeModal() {
-    this._modalBackdropNode.classList.remove('active')
-    this._modalBackdropNode.firstChild.classList.remove('active')
+    this._modalBackdropNode.classList.remove('modal-backdrop--active')
+    this._modalBackdropNode.firstChild.classList.remove('modal-window--active')
     this._isModalOpen = false
     this._triggerButton()
     return this
