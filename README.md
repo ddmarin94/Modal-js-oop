@@ -1,5 +1,5 @@
-## Simple Modal Exercice
-This is a simple exercici to practise in oop with javascript.
+## Simple Modal Exercise
+This is a simple exercise to practice in **OOP** with **javascript**.
 
 To test this repo in your computer do git clone of it and just open the index.html in your current browser.
 
