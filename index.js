@@ -1,56 +1,58 @@
 class ModalComponent {
 
-  constructor(parentNode, modalContent) {
-      this.parentNode = parentNode
-      this.modalContent = modalContent
-      this.isModalOpen = false
+  constructor(parentNodeId, modalContent) {
+      this._parentNodeId = parentNodeId
+      this._modalContent = modalContent
+      this._isModalOpen = false
+      this._parentNode = null
+      this._modalBackdropNode = null
   }
 
-  addCloseModalEvent() {
-    document.getElementById('modalBackdrop').addEventListener('click', () =>  {
-      if(event.target === document.getElementById('modalBackdrop')) {
-        this.closeModal()
-        this.triggerButton()
+  _addCloseModalEvent() {
+    this._modalBackdropNode.addEventListener('click', () => {
+      if(event.target === this._modalBackdropNode) {
+        this._closeModal()
+        this._triggerButton()
       }
     })
     return this
   }
 
-  openModal() {
-    document.getElementById('modalBackdrop').classList.add('active')
-    document.getElementById('modalWindow').classList.add('active')
-    this.addCloseModalEvent()
-    this.isModalOpen = true
-    this.triggerButton()
+  _openModal() {
+    this._modalBackdropNode.classList.add('active')
+    this._modalBackdropNode.firstChild.classList.add('active')
+    this._addCloseModalEvent()
+    this._isModalOpen = true
+    this._triggerButton()
     return this
   }
 
-  closeModal() {
-    document.getElementById('modalBackdrop').classList.remove('active')
-    document.getElementById('modalWindow').classList.remove('active')
-    this.isModalOpen = false
-    this.triggerButton()
+  _closeModal() {
+    this._modalBackdropNode.classList.remove('active')
+    this._modalBackdropNode.firstChild.classList.remove('active')
+    this._isModalOpen = false
+    this._triggerButton()
     return this
   }
 
-  triggerButton() {
-    if(this.isModalOpen) {
-      document.getElementById(this.triggerOpenModal).style.display = 'none'
+  _triggerButton() {
+    if(this._isModalOpen) {
+      this._parentNode.firstElementChild.style.display = 'none'
     } else {
-      document.getElementById(this.triggerOpenModal).style.display = 'block'
+      this._parentNode.firstElementChild.style.display = 'block'
     }
   }
 
   render() {
     const modalTriggerButton = document.createElement('button')
-    modalTriggerButton.id = this.triggerOpenModal
+    modalTriggerButton.id = 'triggerOpenModal'
     modalTriggerButton.innerHTML = 'Open Modal'
-    modalTriggerButton.addEventListener('click', () => this.openModal())
+    modalTriggerButton.addEventListener('click', () => this._openModal())
 
     const modalWindowNode = document.createElement('div')
     modalWindowNode.id = 'modalWindow'
     modalWindowNode.classList.add('modal-window')
-    modalWindowNode.innerHTML = this.modalContent
+    modalWindowNode.innerHTML = this._modalContent
 
     const modalBackdropNode = document.createElement('div')
     modalBackdropNode.id = 'modalBackdrop'
@@ -58,8 +60,10 @@ class ModalComponent {
 
     modalBackdropNode.appendChild(modalWindowNode)
 
-    document.getElementById(this.parentNode).appendChild(modalTriggerButton)
-    document.getElementById(this.parentNode).appendChild(modalBackdropNode)
+    this._modalBackdropNode = modalBackdropNode
+    this._parentNode = document.getElementById(this._parentNodeId)
+    this._parentNode.appendChild(modalTriggerButton)
+    this._parentNode.appendChild(modalBackdropNode)
 
     return this
   }
